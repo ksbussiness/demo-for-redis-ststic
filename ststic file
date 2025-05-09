@@ -1,0 +1,107 @@
+
+
+
+
+
+// // simple server setup in node
+
+// var http =require('http');
+
+// var httpServersetup=http.createServer(function(req,res){
+//     res.writeHead(200, { 'Content-Type': 'text/plain' });
+//     res.end('hello-world');
+
+// })
+
+// httpServersetup.listen(3001,()=>{
+//     console.log('serverrunning on port number 3001');
+
+// });
+
+
+// // simple server setup using the routing in the node.
+
+// var http=require('http');
+
+// var httpServersetup=http.createServer(function(req,res){
+     
+//     const url=req.url;
+//     if(url==='/'){
+//         res.writeHead(200,{'content-type':'text/plain'});
+//         res.end('home page hello ')
+//     }
+
+//     else if(url==='/about'){
+//         res.writeHead(200,{'content-type':'text/plain'});
+//         res.end('this is about page')
+
+//     }
+
+//     else{
+//         res.writeHead(404,'content-type','text/plain');
+//         res.end('page not found')
+//     }
+    
+
+
+// })
+
+// httpServersetup.listen(3001,()=>{
+//     console.log('server running on port number 3001')
+// })
+
+
+// example code for the  working with the express.js static file in same folder.
+
+/*
+const express=require('express');
+const app=express();
+const PORT=3001;
+// EXpress Middleware function for static files:
+app.use(express.static('public'));
+
+
+// When you call app.use(), you’re telling Express to use a piece of middleware.
+//  Middleware is a function that Express passes requests through before sending them to your routing functions,
+//  such as your app.get('/') route. express.static() finds and returns the static files requested.
+//  The argument you pass into express.static() is the name of the directory you want Express to use files.
+//  Here, the public directory.
+
+
+app.get('/',(req,res)=>{
+    res.send('hello iam in home page');
+
+});
+
+app.listen(PORT,()=>{
+    console.log(`server running on the port number ${PORT}`)
+})
+
+*/
+
+
+// working with the express.js static file in different folder with the giving the absolute path here :
+
+const express=require('express');
+const path=require('path');
+const app=express();
+
+const PORT=3001;
+
+//const __dirname=path.resolve();
+
+app.use(express.static(path.join("C:\\Users\\qodic22\\Desktop\\demo")))
+
+app.get('/',(req,res)=>{
+    res.sendFile(path.join("C:\\Users\\qodic22\\Desktop\\demo",'index.html'));
+
+})
+
+app.get('/img',(req,res)=>{
+    res.sendFile(path.join("C:\\Users\\qodic22\\Desktop\\demo",'node_img.jpg'))
+})
+
+
+app.listen(PORT,()=>{
+    console.log(`server running on the port number ${PORT}`);
+})
