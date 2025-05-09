@@ -1,5 +1,48 @@
+in the public folder :
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        THIS IS HTML PAGE
+    </h1>
+    <h2>Hello everybody iam express.js </h2>
+
+    <img src="node_img.jpg" alt="expressimg">
+
+
+    
+</body>
+</html>
+
+pack:
+{
+  "name": "sachin10",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.4",
+    "nodemon": "^3.1.9",
+    "path": "^0.12.7"
+  }
+}
 
 
 
