@@ -1,0 +1,97 @@
+const express=require('express');
+
+const mongoose=require('mongoose');
+
+const multer=require('multer');
+
+
+const app=express();
+
+
+// conection to the database :
+
+mongoose.connect('mongodb://127.0.0.1:27017/fileupload',{ useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+    console.log('connected to the database successfully'); }).catch((err)=>{
+        console.log('failed to connect to the database');
+
+    })
+
+
+    // file setup for multer file uploads:
+
+    const storage=multer.memoryStorage();
+
+    const upload=multer({storage:storage});
+
+
+
+    // defining a mongoose schema:
+
+    const fileschema= new mongoose.Schema({
+
+        filename:String,
+        data:Buffer,
+        contentType:String
+
+    });
+
+    const File=mongoose.model('File',fileschema);
+
+
+
+app.post('/upload',upload.single('file'),async(req,res)=>{
+
+    try{
+
+        const newFile=new File({
+            filename:req.file.originalname,
+            data:req.file.buffer,
+            contentType:req.file.mimetype
+        });
+
+        await newFile.save();
+
+        res.status(200).send('File uploaded successfully');
+
+    }catch(err){
+        console.log("Error uploading file",err);
+        res.status(500).send('erro uploading file');
+    }
+    
+})
+
+
+
+
+    app.listen(4455,()=>{
+        console.log('Server is running on port 4455');
+    })
+
+
+
+
+
+//     ////////"main": "index.js",
+//   "scripts": {
+//     "start":"node app.js",
+//     "dev":"nodemon app.js",
+
+
+
+// postman configuration:
+
+// for uploading the files of text formatt
+// Example of Correct Postman Configuration:
+// HTTP Method: POST
+// URL: http://127.0.0.1:4455/upload
+// Body: Choose form-data and select the file field:
+// Key: file
+// Value: Choose the file you want to upload,
+
+// for uplaoding the files of image formatt
+// Example of Correct Postman Configuration:
+// HTTP Method: POST
+// URL: http://127.0.0.1:4455/upload
+// Body: Choose form-data and select the file field:
+// Key: file
+// Value: Choose the file you want to upload,
